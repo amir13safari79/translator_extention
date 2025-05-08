@@ -1,0 +1,25 @@
+{
+  "name": "text-persian-translator",
+  "version": "1.0.0",
+  "description": "Chrome extension to translate selected text to Persian using LLM",
+  "type": "module",
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "tsc && vite build",
+    "check": "tsc --noEmit"
+  },
+  "keywords": [
+    "chrome-extension",
+    "translator",
+    "llm",
+    "gpt",
+    "persian"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chrome": "^0.0.260",
+    "typescript": "^5.3.3",
+    "vite": "^5.1.4"
+  }
+} 

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Storage Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    button {
+      padding: 10px;
+      margin: 5px;
+      background-color: #4285f4;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #status {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f0f0f0;
+      border-radius: 4px;
+      min-height: 20px;
+    }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-all;
+      background-color: #f5f5f5;
+      padding: 10px;
+      overflow: auto;
+      max-height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Chrome Storage Test</h1>
+  
+  <div>
+    <button id="test-set">Test Set Value</button>
+    <button id="test-get">Test Get Value</button>
+    <button id="clear-storage">Clear Storage</button>
+  </div>
+  
+  <div id="status"></div>
+  
+  <pre id="output"></pre>
+  
+  <script>
+    // Simple helper to log to both console and screen
+    function log(message) {
+      console.log(message);
+      const output = document.getElementById('output');
+      const status = document.getElementById('status');
+      
+      if (output) {
+        // Append to output with timestamp
+        const time = new Date().toLocaleTimeString();
+        output.textContent += `[${time}] ${message}\n`;
+        // Auto-scroll to bottom
+        output.scrollTop = output.scrollHeight;
+      }
+      
+      if (status) {
+        status.textContent = message;
+      }
+    }
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      log('Page loaded');
+      
+      // Test set value
+      document.getElementById('test-set').addEventListener('click', async () => {
+        try {
+          log('Attempting to set test value...');
+          const testData = { 
+            test_key: 'test_value_' + Date.now(),
+            timestamp: new Date().toISOString()
+          };
+          
+          await chrome.storage.local.set(testData);
+          log(`Value set: ${JSON.stringify(testData)}`);
+        } catch (error) {
+          log(`Error setting value: ${error.message}`);
+          console.error(error);
+        }
+      });
+      
+      // Test get value
+      document.getElementById('test-get').addEventListener('click', async () => {
+        try {
+          log('Attempting to get all values...');
+          const data = await chrome.storage.local.get(null);
+          log(`Retrieved values: ${JSON.stringify(data, null, 2)}`);
+        } catch (error) {
+          log(`Error getting values: ${error.message}`);
+          console.error(error);
+        }
+      });
+      
+      // Clear storage
+      document.getElementById('clear-storage').addEventListener('click', async () => {
+        try {
+          log('Attempting to clear storage...');
+          await chrome.storage.local.clear();
+          log('Storage cleared');
+        } catch (error) {
+          log(`Error clearing storage: ${error.message}`);
+          console.error(error);
+        }
+      });
+    });
+  </script>
+</body>
+</html> 

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Persian Translator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      width: 300px;
+      padding: 16px;
+      margin: 0;
+      direction: ltr;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    h1 {
+      font-size: 18px;
+      margin: 0 0 8px 0;
+      color: #333;
+    }
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    label {
+      font-size: 14px;
+      color: #555;
+    }
+    input, select {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #4285f4;
+      box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+    }
+    button {
+      background-color: #4285f4;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    button:hover {
+      background-color: #3367d6;
+    }
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    .status {
+      margin-top: 8px;
+      padding: 8px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: bold;
+      min-height: 20px;
+    }
+    .success {
+      color: white;
+      background-color: #0f9d58;
+    }
+    .error {
+      color: white;
+      background-color: #db4437;
+    }
+    .info {
+      color: white;
+      background-color: #4285f4;
+    }
+    .info-text {
+      margin-top: 12px;
+      font-size: 12px;
+      color: #666;
+      line-height: 1.4;
+    }
+    .api-selector {
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #eee;
+    }
+    .button-row {
+      display: flex;
+      gap: 8px;
+    }
+    .secondary-button {
+      background-color: #9e9e9e;
+    }
+    .secondary-button:hover {
+      background-color: #757575;
+    }
+    .debug-info {
+      margin-top: 12px;
+      padding: 8px;
+      background-color: #f5f5f5;
+      border-radius: 4px;
+      font-size: 12px;
+      max-height: 100px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .troubleshoot {
+      margin-top: 12px;
+      text-align: center;
+      border-top: 1px solid #eee;
+      padding-top: 12px;
+    }
+    .troubleshoot a {
+      color: #4285f4;
+      text-decoration: none;
+      font-size: 12px;
+    }
+    .troubleshoot a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Persian Translator Settings</h1>
+    
+    <div class="api-selector">
+      <div class="input-group">
+        <label for="api-choice">Select AI Service:</label>
+        <select id="api-choice">
+          <option value="gpt">OpenAI GPT</option>
+          <option value="grok">Grok</option>
+        </select>
+      </div>
+    </div>
+    
+    <div id="gpt-section" class="input-group">
+      <label for="gpt-api-key">OpenAI API Key</label>
+      <input type="password" id="gpt-api-key" placeholder="Enter your OpenAI API key" />
+    </div>
+    
+    <div id="grok-section" class="input-group" style="display: none;">
+      <label for="grok-api-key">Grok API Key</label>
+      <input type="password" id="grok-api-key" placeholder="Enter your Grok API key" />
+    </div>
+    
+    <div class="button-row">
+      <button id="save-btn">Save Settings</button>
+      <button id="test-btn" class="secondary-button">Test Storage</button>
+    </div>
+    
+    <div id="status" class="status" style="display: none;"></div>
+    
+    <div id="debug-info" class="debug-info" style="display: none;"></div>
+    
+    <div class="info-text">
+      <p>To use this translator:</p>
+      <ol>
+        <li>Select your preferred AI service</li>
+        <li>Enter the corresponding API key</li>
+        <li>Select text on any webpage</li>
+        <li>Right-click and choose "Translate to Persian"</li>
+      </ol>
+      <p>You can get an OpenAI API key from <a href="https://platform.openai.com/api-keys" target="_blank">OpenAI's website</a>.</p>
+    </div>
+    
+    <div class="troubleshoot">
+      <a href="test.html" target="_blank">Troubleshoot Storage Issues</a>
+    </div>
+  </div>
+
+  <script src="popup.js" type="text/javascript"></script>
+</body>
+</html> 
